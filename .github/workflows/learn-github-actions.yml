@@ -1,4 +1,4 @@
-name: 01-Create Azure Machine Learning workspace
+name: 01-Create Azure ML Workspace
 run-name: ${{ github.actor }} is executing 01-create-workspace.yml
 
 on:
@@ -45,4 +45,9 @@ jobs:
 
       - name: Install az ml extension
         run: az extension add -n ml -y
+
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{secrets.AZURE_CREDENTIALS}}
 
