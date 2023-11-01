@@ -3,13 +3,13 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "name": {
-            "value": "ftd"
+            "value": "AI-in-a-Box-ML"       
         },
         "amlworkspace": {
-            "value": "amlworkspace"
+            "value": "aibx-mlw"
         },
         "environment": {
-            "value": "fte"
+            "value": "aibox"
         },
         "location": {
             "value": "eastus"

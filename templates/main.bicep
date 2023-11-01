@@ -1,7 +1,7 @@
 /*region Header
       =========================================================================================================
       Created by:       Author: Your Name | your.name@azurestream.io 
-      Created on:       11/13/2023
+      Created on:       11/30/2023
       Description:      Pattern 1 Azure ML
       =========================================================================================================
 
@@ -51,6 +51,7 @@ var workspaceName = amlworkspace
 
 //1. Deploy Required Storage Account(s)
 //Deploy Storage Accounts (Create your Storage Account (ADLS Gen2 & HNS Enabled) for your ML Workspace)
+//https://docs.microsoft.com/en-us/azure/templates/microsoft.storage/storageaccounts?tabs=bicep
 resource stg 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   name: storageAccountName
   location: location
@@ -75,6 +76,7 @@ resource stg 'Microsoft.Storage/storageAccounts@2022-09-01' = {
 }
 
 //2. Deploy Application Insights Instance
+//https://learn.microsoft.com/en-us/azure/templates/microsoft.insights/components?pivots=deployment-language-bicep
 resource aisn 'Microsoft.Insights/components@2020-02-02' = {
   name: applicationInsightsName
   location: (((location == 'eastus2') || (location == 'westcentralus')) ? 'southcentralus' : location)
@@ -85,6 +87,7 @@ resource aisn 'Microsoft.Insights/components@2020-02-02' = {
 }
 
 //3. Deploy Required Key Vault
+//https://docs.microsoft.com/en-us/azure/templates/microsoft.keyvault/vaults
 resource kvn 'Microsoft.KeyVault/vaults@2022-07-01' = {
   name: keyVaultName
   location: location
@@ -99,7 +102,8 @@ resource kvn 'Microsoft.KeyVault/vaults@2022-07-01' = {
   }
 }
 
-//4. Deploy Machine Learning Instance
+//4. Deploy Machine Learning Workspace
+//https://learn.microsoft.com/en-us/azure/templates/microsoft.machinelearningservices/workspaces?pivots=deployment-language-bicep
 resource amlwn 'Microsoft.MachineLearningServices/workspaces@2023-06-01-preview' = {
   identity: {
     type: 'SystemAssigned'
@@ -116,6 +120,7 @@ resource amlwn 'Microsoft.MachineLearningServices/workspaces@2023-06-01-preview'
 }
 
 //5. Deploy ML Workspace Compute Instance
+//https://learn.microsoft.com/en-us/azure/templates/microsoft.machinelearningservices/workspaces/computes?pivots=deployment-language-bicep
 resource amlwcompute 'Microsoft.MachineLearningServices/workspaces/computes@2023-06-01-preview' = {
   parent: amlwn
   name: amlcomputename

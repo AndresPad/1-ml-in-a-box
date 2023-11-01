@@ -51,3 +51,7 @@ jobs:
         with:
           creds: ${{secrets.AZURE_CREDENTIALS}}
 
+      - name: Create Azure ML Workspace
+        run: |
+          #az ml workspace create --name "${{ env.amlw }}" --resource-group "${{ env.rg }}"
+          az deployment group create --resource-group "${{ env.rg }}" --template-file ../../templates/main.bicep --parameters ../../templates/@ml_ws_deploy.json --parameters amlworkspace="${{ env.amlw }}"
