@@ -1,19 +1,25 @@
 name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
+
 on:
   push:
+    branches:
+     - 'main'
+    paths:
+    - 'src/model/*'
   workflow_dispatch:
     inputs:
       resource_group:
         description: 'Resource group name'
         required: true
-        default: 'rg-dev-mlops'
+        default: 'aibx-ml-rg'
         type: string
       aml_workspace:
         description: 'Azure Machine Learning workspace name'
         required: true
-        default: 'mlw-dev-mlops'
+        default: 'aibx-ml-mlw-dev-rg'
         type: string
+        
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
