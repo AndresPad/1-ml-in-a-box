@@ -36,20 +36,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Define Resource Grouup and Azure ML Workspace
+      - name: Define Resource Group and Azure ML Workspace
         run: |
           echo "rg=$rg"
           echo "amlw=$amlw"
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            rg="${{ github.event.inputs.resource_group }}"
-            amlw="${{ github.event.inputs.aml_workspace }}"
-            echo "rg=${{ env.rg }}" >> "$GITHUB_ENV"
-            echo "amlw=${{ env.amlw }}" >> "$GITHUB_ENV"
-          fi
           if [[ "${{ github.event_name }}" == "push" ]]; then
             echo "rg=${{ env.rg }}" >> "$GITHUB_ENV"
             echo "amlw=${{ env.amlw }}" >> "$GITHUB_ENV"
           else
+            rg="${{ github.event.inputs.resource_group }}"
+            amlw="${{ github.event.inputs.aml_workspace }}"
             echo "rg=${{ github.event.inputs.resource_group }}" >> "$GITHUB_ENV"
             echo "amlw=${{ github.event.inputs.aml_workspace }}" >> "$GITHUB_ENV"
           fi 
