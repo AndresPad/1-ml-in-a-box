@@ -1,5 +1,5 @@
-name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
+name: 01-Create Azure Machine Learning workspace
+run-name: ${{ github.actor }} is executing 01-create-workspace.yml
 
 on:
   push:
@@ -19,27 +19,17 @@ on:
         required: true
         default: 'aibx-mlw'
         type: string
+
 env:
-  rg: 'aibx-ml-rg'
-  amlw: 'aibx-mlw'
+  rg: '****'
+  amlw: '****'
 
 jobs:
-  check-bats-version:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-      - run: npm install -g bats
-      - run: bats -v
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Define Resource Group and Azure ML Workspace
         run: |
-          echo "rg=$rg"
-          echo "amlw=$amlw"
           if [[ "${{ github.event_name }}" == "push" ]]; then
             echo "rg=${{ env.rg }}" >> "$GITHUB_ENV"
             echo "amlw=${{ env.amlw }}" >> "$GITHUB_ENV"
@@ -49,3 +39,10 @@ jobs:
             echo "rg=${{ github.event.inputs.resource_group }}" >> "$GITHUB_ENV"
             echo "amlw=${{ github.event.inputs.aml_workspace }}" >> "$GITHUB_ENV"
           fi 
+
+      - name: Check out repo
+        uses: actions/checkout@main
+
+      - name: Install az ml extension
+        run: az extension add -n ml -y
+
