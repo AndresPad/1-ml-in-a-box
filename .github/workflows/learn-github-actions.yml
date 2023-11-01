@@ -17,11 +17,11 @@ on:
       aml_workspace:
         description: 'Azure Machine Learning workspace name'
         required: true
-        default: 'aibx-ml-mlw-dev-rg'
+        default: 'aibx-mlw'
         type: string
 env:
-  rg: '****'
-  amlw: '****'
+  rg: 'aibx-ml-rg'
+  amlw: 'aibx-mlw'
 
 jobs:
   check-bats-version:
