@@ -19,7 +19,10 @@ on:
         required: true
         default: 'aibx-ml-mlw-dev-rg'
         type: string
-        
+env:
+  rg: '****'
+  amlw: '****'
+
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
