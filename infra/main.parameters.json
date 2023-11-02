@@ -9,7 +9,7 @@
             "value": "eastus" 
         },
         "amlworkspace": {
-            "value": "amlworkspace"
+            "value": "aibx-mlw"
         }
     }
 }

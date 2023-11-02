@@ -43,7 +43,7 @@ az deployment group create --resource-group $rgName --template-file $BicepFile -
 
 #Clean Up the Resources and Delete the Resource Group
 #az group delete --name $rgName --yes
-#az keyvault purge --name kv-aibox4n4
+#az keyvault purge --name yourkeyvault
 
 # Decompile ARM template
 #az bicep decompile --file template.json
