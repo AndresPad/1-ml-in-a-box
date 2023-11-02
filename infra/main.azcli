@@ -8,7 +8,7 @@
     $rgName            = "aibx-ml-rg"
     $DeploymentName    = "AI-in-a-Box-ML"
     $BicepFile         = "main.bicep"
-    $parameterFile     = "main.parameters.json" 
+    $parameterFile     = "ml_ws_deploy.json" 
 #endregion
 
 #First - Make sure you already have a Service Principal Created and gather the SP's Application ID, Client Secret and Tenant ID.
