@@ -95,55 +95,55 @@ resource aisn 'Microsoft.Insights/components@2020-02-02' = {
   }
 }
 
-//3. Deploy Required Key Vault
-//https://docs.microsoft.com/en-us/azure/templates/microsoft.keyvault/vaults
-resource kvn 'Microsoft.KeyVault/vaults@2022-07-01' = {
-  name: keyVaultName
-  location: resourceLocation
-  properties: {
-    tenantId: tenantId
-    sku: {
-      name: 'standard'
-      family: 'A'
-    }
-    accessPolicies: []
-    enableSoftDelete: true
-  }
-}
+// //3. Deploy Required Key Vault
+// //https://docs.microsoft.com/en-us/azure/templates/microsoft.keyvault/vaults
+// resource kvn 'Microsoft.KeyVault/vaults@2022-07-01' = {
+//   name: keyVaultName
+//   location: resourceLocation
+//   properties: {
+//     tenantId: tenantId
+//     sku: {
+//       name: 'standard'
+//       family: 'A'
+//     }
+//     accessPolicies: []
+//     enableSoftDelete: true
+//   }
+// }
 
-//4. Deploy Machine Learning Workspace
-//https://learn.microsoft.com/en-us/azure/templates/microsoft.machinelearningservices/workspaces?pivots=deployment-language-bicep
-resource amlwn 'Microsoft.MachineLearningServices/workspaces@2023-06-01-preview' = {
-  identity: {
-    type: 'SystemAssigned'
-  }
-  name: workspaceName
-  location: resourceLocation
-  properties: {
-    friendlyName: workspaceName
-    storageAccount: stg.id
-    keyVault: kvn.id
-    applicationInsights: aisn.id
-    hbiWorkspace: hbi_workspace
-  }
-}
+// //4. Deploy Machine Learning Workspace
+// //https://learn.microsoft.com/en-us/azure/templates/microsoft.machinelearningservices/workspaces?pivots=deployment-language-bicep
+// resource amlwn 'Microsoft.MachineLearningServices/workspaces@2023-06-01-preview' = {
+//   identity: {
+//     type: 'SystemAssigned'
+//   }
+//   name: workspaceName
+//   location: resourceLocation
+//   properties: {
+//     friendlyName: workspaceName
+//     storageAccount: stg.id
+//     keyVault: kvn.id
+//     applicationInsights: aisn.id
+//     hbiWorkspace: hbi_workspace
+//   }
+// }
 
-//5. Deploy ML Workspace Compute Instance
-//https://learn.microsoft.com/en-us/azure/templates/microsoft.machinelearningservices/workspaces/computes?pivots=deployment-language-bicep
-resource amlwcompute 'Microsoft.MachineLearningServices/workspaces/computes@2023-06-01-preview' = {
-  parent: amlwn
-  name: amlcomputename
-  location: resourceLocation
-  properties: {
-    computeType: 'AmlCompute'
-    properties: {
-      scaleSettings: {
-        minNodeCount: 0
-        maxNodeCount: 1
-        nodeIdleTimeBeforeScaleDown: 'PT120S'
-      }
-      vmPriority: 'Dedicated'
-      vmSize: 'Standard_DS3_v2'
-    }
-  }
-}
+// //5. Deploy ML Workspace Compute Instance
+// //https://learn.microsoft.com/en-us/azure/templates/microsoft.machinelearningservices/workspaces/computes?pivots=deployment-language-bicep
+// resource amlwcompute 'Microsoft.MachineLearningServices/workspaces/computes@2023-06-01-preview' = {
+//   parent: amlwn
+//   name: amlcomputename
+//   location: resourceLocation
+//   properties: {
+//     computeType: 'AmlCompute'
+//     properties: {
+//       scaleSettings: {
+//         minNodeCount: 0
+//         maxNodeCount: 1
+//         nodeIdleTimeBeforeScaleDown: 'PT120S'
+//       }
+//       vmPriority: 'Dedicated'
+//       vmSize: 'Standard_DS3_v2'
+//     }
+//   }
+// }
